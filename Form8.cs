@@ -47,7 +47,7 @@ namespace Procurement_Recorder
                         deleteQuery = $"DELETE FROM clients WHERE client_id = {textBox1.Text}";
                     }else if (StateFromForm1 == 2)
                     {
-                        deleteQuery = $"DELETE FROM employee WHERE employee_id = {textBox1.Text}";
+                        deleteQuery = $"DELETE FROM employee WHERE employee_id = '{textBox1.Text}'";
                     }
                     else if (StateFromForm1 == 3)
                     {
@@ -59,11 +59,11 @@ namespace Procurement_Recorder
                     }
                     else if (StateFromForm1 == 5)
                     {
-                        deleteQuery = $"DELETE FROM purchase_request WHERE pr_number = {textBox1.Text}";
+                        deleteQuery = $"DELETE FROM purchase_request WHERE pr_number = '{textBox1.Text}'";
                     }
                     else if (StateFromForm1 == 6)
                     {
-                        deleteQuery = $"DELETE FROM purchase_order WHERE po_number = {textBox1.Text}";
+                        deleteQuery = $"DELETE FROM purchase_order WHERE po_number = '{textBox1.Text}'";
                     }
 
                     MySqlCommand command = new MySqlCommand(deleteQuery, connection);

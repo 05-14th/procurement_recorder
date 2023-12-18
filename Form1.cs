@@ -136,51 +136,93 @@ namespace WindowsFormsApp1
 
         private void LoadPRData()
         {
-            // Create a DataTable to store the data
-            DataTable dataTable = new DataTable();
-
-            // SQL query to fetch data from the database
-            string query = "SELECT * FROM purchase_request";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            try
             {
-                connection.Open();
+                // Create a DataTable to store the data
+                DataTable dataTable = new DataTable();
 
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+                // SQL query to fetch data from the database
+                string query = "SELECT * FROM purchase_request";
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    connection.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        adapter.Fill(dataTable);
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                        {
+                            adapter.Fill(dataTable);
+                        }
                     }
                 }
-            }
 
-            dataGridView5.DataSource = dataTable;
+                dataGridView5.DataSource = dataTable;
+            }
+            catch (MySql.Data.Types.MySqlConversionException ex)
+            {
+                // Handle MySqlConversionException
+                MessageBox.Show($"Error converting MySQL date/time value to System.DateTime: {ex.Message}. Please contact tech support.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // You can also log the exception details for debugging or other purposes
+                // LogException(ex);
+            }
+            catch (MySqlException ex)
+            {
+                // Handle other MySQL-related exceptions
+                MessageBox.Show($"MySQL Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions that might occur
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void LoadPOData()
         {
-            // Create a DataTable to store the data
-            DataTable dataTable = new DataTable();
-
-            // SQL query to fetch data from the database
-            string query = "SELECT * FROM purchase_order";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            try
             {
-                connection.Open();
+                // Create a DataTable to store the data
+                DataTable dataTable = new DataTable();
 
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+                // SQL query to fetch data from the database
+                string query = "SELECT * FROM purchase_order";
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    connection.Open();
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        adapter.Fill(dataTable);
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                        {
+                            adapter.Fill(dataTable);
+                        }
                     }
                 }
-            }
 
-            dataGridView6.DataSource = dataTable;
+                dataGridView6.DataSource = dataTable;
+            }
+            catch (MySql.Data.Types.MySqlConversionException ex)
+            {
+                // Handle MySqlConversionException
+                MessageBox.Show($"Error converting MySQL date/time value to System.DateTime: {ex.Message}. Please contact tech support.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // You can also log the exception details for debugging or other purposes
+                // LogException(ex);
+            }
+            catch (MySqlException ex)
+            {
+                // Handle other MySQL-related exceptions
+                MessageBox.Show($"MySQL Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions that might occur
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -391,8 +433,23 @@ namespace WindowsFormsApp1
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            UpdateChangesToDatabase();
+            // Display a message box to confirm updating changes
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to save all the changes?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // Check the user's response
+            if (dialogResult == DialogResult.Yes)
+            {
+                // User confirmed to update changes
+                await UpdateChangesToDatabase();
+            }
+            else
+            {
+                // User chose not to update changes
+                // Perform necessary actions or inform the user
+                MessageBox.Show("Changes were not updated.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
+
 
         private async Task UpdateChangesToDatabase()
         {
