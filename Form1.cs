@@ -50,11 +50,7 @@ namespace WindowsFormsApp1
             try
             {
                 string fileContent = File.ReadAllText(filePath);
-                if (fileContent.Contains("true"))
-                {
-                    
-                }
-                else
+                if (!fileContent.Contains("true"))
                 {
                     Form9 form9 = new Form9();
                     form9.ShowDialog();
@@ -66,11 +62,7 @@ namespace WindowsFormsApp1
                 Form9 form9 = new Form9();
                 form9.ShowDialog();
                 string fileContent = File.ReadAllText(filePath);
-                if (fileContent.Contains("true"))
-                {
-
-                }
-                else
+                if (!fileContent.Contains("true"))
                 {
                     this.Close();
                 }
@@ -748,9 +740,14 @@ namespace WindowsFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string filePath = "login.txt";
-            File.Delete(filePath);
-            this.Close();
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                string filePath = "login.txt";
+                File.Delete(filePath);
+                this.Close();
+            }
         }
     }
 
