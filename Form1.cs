@@ -30,6 +30,9 @@ namespace WindowsFormsApp1
             LoadSupplierData();
             LoadPRData();
             LoadPOData();
+            init_design(this);
+            // Assuming you have six DataGridView instances named dataGridView1, dataGridView2, ..., dataGridView6
+            SetAllDataGridViewsBackgroundColorToMaroon(dataGridView1, dataGridView2, dataGridView3, dataGridView4, dataGridView5, dataGridView6);
             dataGridView2.Visible = false;
             dataGridView3.Visible = false;
             dataGridView4.Visible = false;
@@ -37,6 +40,34 @@ namespace WindowsFormsApp1
             dataGridView6.Visible = false;
             panel3.Visible = false;
         }
+
+        private void init_design(Control control)
+        {
+            this.BackColor = Color.Maroon; // 'this' refers to the current form
+                                           // Loop through all controls on the form
+
+            foreach (Control ctrl in control.Controls)
+            {
+                if (ctrl is Button)
+                {
+                    ((Button)ctrl).BackColor = Color.Gold;
+                }
+                else if (ctrl.HasChildren)
+                {
+                    init_design(ctrl); // Recursively check child controls
+                }
+            }
+        }
+
+        private void SetAllDataGridViewsBackgroundColorToMaroon(params DataGridView[] dataGridViews)
+        {
+            foreach (DataGridView dataGridView in dataGridViews)
+            {
+                dataGridView.BackgroundColor = Color.Maroon;
+            }
+        }
+
+
 
         private void LoadData()
         {
