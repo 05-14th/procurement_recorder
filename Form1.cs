@@ -14,6 +14,7 @@ using Procurement_Recorder;
 using System.IO;
 using OfficeOpenXml;
 using System.Web;
+using System.Runtime.CompilerServices;
 
 namespace WindowsFormsApp1
 {
@@ -24,6 +25,7 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+            iLogin();
             LoadData();
             LoadEmployeeData();
             LoadItemsData();
@@ -39,6 +41,44 @@ namespace WindowsFormsApp1
             dataGridView5.Visible = false;
             dataGridView6.Visible = false;
             panel3.Visible = false;
+        }
+
+        private void iLogin()
+        {
+            string filePath = "login.txt";
+
+            try
+            {
+                string fileContent = File.ReadAllText(filePath);
+                if (fileContent.Contains("true"))
+                {
+                    
+                }
+                else
+                {
+                    Form9 form9 = new Form9();
+                    form9.ShowDialog();
+                    this.Close();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Form9 form9 = new Form9();
+                form9.ShowDialog();
+                string fileContent = File.ReadAllText(filePath);
+                if (fileContent.Contains("true"))
+                {
+
+                }
+                else
+                {
+                    this.Close();
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("An error occurred while reading the file: " + ex.Message);
+            }
         }
 
         private void init_design(Control control)
@@ -704,6 +744,13 @@ namespace WindowsFormsApp1
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string filePath = "login.txt";
+            File.Delete(filePath);
+            this.Close();
         }
     }
 
