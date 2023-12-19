@@ -303,31 +303,43 @@ namespace WindowsFormsApp1
             {
                 Form2 form2 = new Form2();
                 form2.ShowDialog();
+                dataGridView1.DataSource = null;
+                LoadData();
             }
             else if (state == 2)
             {
                 Form3 form3 = new Form3();
                 form3.ShowDialog();
+                dataGridView2.DataSource = null;
+                LoadEmployeeData();
             }
             else if (state == 3)
             {
                 Form4 form4 = new Form4();
                 form4.ShowDialog();
+                dataGridView3.DataSource = null;
+                LoadItemsData();
             }
             else if (state == 4)
             {
                 Form5 form5 = new Form5();
                 form5.ShowDialog();
+                dataGridView4.DataSource = null;
+                LoadSupplierData();
             }
             else if (state == 5)
             {
                 Form6 form6 = new Form6();
                 form6.ShowDialog();
+                dataGridView5.DataSource = null;
+                LoadPRData();
             }
             else if (state == 6)
             {
                 Form7 form7 = new Form7();
                 form7.ShowDialog();
+                dataGridView6.DataSource = null;
+                LoadPOData();
             }
         }
 
@@ -456,6 +468,8 @@ namespace WindowsFormsApp1
                 form8.StateFromForm1 = state;
                 form8.changeLabel("Type the client_id number to delete: ");
                 form8.ShowDialog();
+                dataGridView1.DataSource = null;
+                LoadData();
             }
             else if (state == 2)
             {
@@ -463,6 +477,8 @@ namespace WindowsFormsApp1
                 form8.StateFromForm1 = state;
                 form8.changeLabel("Type the employee_id number to delete: ");
                 form8.ShowDialog();
+                dataGridView2.DataSource = null;
+                LoadEmployeeData();
             }
             else if (state == 3)
             {
@@ -470,6 +486,8 @@ namespace WindowsFormsApp1
                 form8.StateFromForm1 = state;
                 form8.changeLabel("Type the item_no number to delete: ");
                 form8.ShowDialog();
+                dataGridView3.DataSource = null;
+                LoadItemsData();
             }
             else if (state == 4)
             {
@@ -477,6 +495,8 @@ namespace WindowsFormsApp1
                 form8.StateFromForm1 = state;
                 form8.changeLabel("Type the supplier_id number to delete: ");
                 form8.ShowDialog();
+                dataGridView4.DataSource = null;
+                LoadSupplierData();
             }
             else if (state == 5)
             {
@@ -484,6 +504,8 @@ namespace WindowsFormsApp1
                 form8.StateFromForm1 = state;
                 form8.changeLabel("Type the pr_number number to delete: ");
                 form8.ShowDialog();
+                dataGridView5.DataSource = null;
+                LoadPRData();
             }
             else if (state == 6)
             {
@@ -491,6 +513,8 @@ namespace WindowsFormsApp1
                 form8.StateFromForm1 = state;
                 form8.changeLabel("Type the po_number number to delete: ");
                 form8.ShowDialog();
+                dataGridView6.DataSource = null;
+                LoadPOData();
             }
         }
 
@@ -582,7 +606,37 @@ namespace WindowsFormsApp1
                                 // Commit the transaction if successful
                                 transaction.Commit();
 
-                                RestartApplication();
+                                switch (state)
+                                {
+                                    // Case statements for different tables, modify as needed
+                                    case 1:
+                                        dataGridView1.DataSource = null;
+                                        LoadData();
+                                        break;
+                                    case 2:
+                                        dataGridView2.DataSource = null;
+                                        LoadEmployeeData();
+                                        break;
+                                    case 3:
+                                        dataGridView3.DataSource = null;
+                                        LoadItemsData();
+                                        break;
+                                    case 4:
+                                        dataGridView4.DataSource = null;
+                                        LoadSupplierData();
+                                        break;
+                                    case 5:
+                                        dataGridView5.DataSource = null;
+                                        LoadPRData();
+                                        break;
+                                    case 6:
+                                        dataGridView6.DataSource = null;
+                                        LoadPOData();
+                                        break;
+
+                                    default:
+                                        break;
+                                }
                             }
                         }
                         catch (DBConcurrencyException ex)

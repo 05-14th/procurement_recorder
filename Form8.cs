@@ -74,13 +74,14 @@ namespace Procurement_Recorder
                     if (rowsAffected > 0)
                     {
                         MessageBox.Show("Data deleted successfully!");
+                        this.Close();
                     }
                     else
                     {
                         MessageBox.Show("No data deleted.");
                     }
 
-                    RestartApplication();
+                
                     this.Close();
                 }
             }

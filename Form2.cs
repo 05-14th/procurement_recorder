@@ -86,7 +86,7 @@ namespace WindowsFormsApp1
                         connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
                         MessageBox.Show("Data successfully added to the database", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        RestartApplication();
+                        this.Close();
                     }
                     catch (Exception ex)
                     {
